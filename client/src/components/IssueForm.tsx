@@ -9,7 +9,7 @@ interface Issue {
 }
 
 interface IssueFormProps {
-  onSubmit: (issue: Issue | Omit<Issue, 'id'>) => Promise<void>
+  onSubmit: (issue: Issue) => Promise<void>
   initialIssue?: Issue | null
 }
 
@@ -26,7 +26,7 @@ export default function IssueForm({ onSubmit, initialIssue }: IssueFormProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    onSubmit(initialIssue ? { ...initialIssue, title, description } : { title, description })
+    onSubmit(initialIssue ? { ...initialIssue, title, description } : { title, description } as Issue)
     setTitle('')
     setDescription('')
   }

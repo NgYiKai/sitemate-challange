@@ -30,6 +30,7 @@ app.post('/api/issues', (req, res) => {
     description: req.body.description,
   };
   issues.push(newIssue);
+  console.log('Created:', newIssue);
   res.status(201).json(newIssue);
 });
 
@@ -38,6 +39,7 @@ app.put('/api/issues/:id', (req, res) => {
   const index = issues.findIndex(issue => issue.id === id);
   if (index !== -1) {
     issues[index] = { ...issues[index], ...req.body };
+    console.log('Updated:', issues[index]);
     res.json(issues[index]);
   } else {
     res.status(404).json({ message: 'Issue not found' });
@@ -46,8 +48,14 @@ app.put('/api/issues/:id', (req, res) => {
 
 app.delete('/api/issues/:id', (req, res) => {
   const id = parseInt(req.params.id);
+  const deletedIssue = issues.find(issue => issue.id === id);
   issues = issues.filter(issue => issue.id !== id);
-  res.status(204).send();
+  if (deletedIssue) {
+    console.log('Deleted:', deletedIssue);
+    res.status(200).json(deletedIssue);
+  } else {
+    res.status(404).json({ message: 'Issue not found' });
+  }
 });
 
 app.listen(port, () => {

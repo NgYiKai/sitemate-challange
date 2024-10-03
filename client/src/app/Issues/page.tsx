@@ -22,7 +22,7 @@ export default function Issues() {
     }
   }
 
-  const handleCreateIssue = async (issue: Omit<Issue, 'id'>) => {
+  const handleCreateIssue = async (issue: Issue) => {
     try {
       const newIssue = await createIssue(issue)
       setIssues([...issues, newIssue])
@@ -68,7 +68,7 @@ export default function Issues() {
         className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         onClick={fetchIssues}
       >
-        Refresh Issues
+        Fetch Issues
       </button>
     </div>
   )

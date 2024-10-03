@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Issues from "./Issues/page";
 
 export default function Home() {
